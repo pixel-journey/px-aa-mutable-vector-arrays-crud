@@ -4,7 +4,9 @@
 > **Stack:** layer 4 of 5 — [MUTABLE-STACK.md](https://github.com/pixel-journey/px-contract-examples-vault/blob/main/docs/MUTABLE-STACK.md)  
 > **Sources:** [SOURCES.md](SOURCES.md)
 
-**One-sentence goal:** `push`, `eraseAt`, and `clear` on typed vectors (int64 / uint64 / string) with max length 64, locked kinds, and **sibling keys preserved**.
+**One-sentence goal:** `push`, `eraseAt`, and `clear` on typed vectors (int64 / uint64 / string). This lab refuses a 65th element and a string longer than 256. Those caps are not AtomicAssets checks. The serializer writes whatever length you hand it.
+
+The bytes for one `int64[]` or `uint64[]` value are `previewAttributeBytes` in [wax-atomic-template-and-schema-explorer](https://github.com/pixel-journey/wax-atomic-template-and-schema-explorer). `int64[]` of `-2` is `040103`. `uint64[]` of `128` is `04018001`. This file does not emit those bytes.
 
 This is **not** its own contract. It is the vector half of the same `setassetdata` write. Do not treat push/erase as a pack, gem, or achievement product — those would be layer-5-style **applications**, not new stack layers.
 
