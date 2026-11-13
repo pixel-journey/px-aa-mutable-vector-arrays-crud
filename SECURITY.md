@@ -1,10 +1,10 @@
-# Security
+# Security notes — vector CRUD
 
-| Surface | Closed by |
+| Mitigated | Behavior |
 | --- | --- |
-| Unbounded growth | MAX_VEC_LEN 64 |
-| Kind change | kind mismatch |
-| Bad erase index | bad index |
-| Negative uint64 | out of range |
+| Overlong vector (lab) | push refused |
+| Bad index | erase refused |
+| Element type mismatch | refused |
+| Sibling wipe | full-map style updates |
 
-Not claimed: live setassetdata, schema table, wasm.
+Production: real schema types, RAM, collection auth, chain previous map.
