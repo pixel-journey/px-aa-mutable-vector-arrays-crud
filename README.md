@@ -20,7 +20,11 @@ This is **not** its own contract. It is the vector half of the same `setassetdat
 
 Official type system: [Serialization wiki](https://github.com/pinknetworkx/atomicassets-contract/wiki/Serialization). Contract: [atomicassets-contract](https://github.com/pinknetworkx/atomicassets-contract).
 
-**Real code:** `npm test`. No live AtomicAssets, no wasm.
+**Real code:** `npm test` (unit + **sequential composition**). No live AtomicAssets, no wasm.
+
+## Composition note
+
+`vectors.composition.test.ts` pushes three int64 scores, erases the middle, and leaves a sibling string vector alone. Filling to `MAX_VEC_LEN` (64) refuses the next push. `clear` empties one key without deleting the other. A kind mismatch mid-path leaves both vectors intact.
 
 ## What is true (executed)
 
@@ -29,6 +33,7 @@ Official type system: [Serialization wiki](https://github.com/pinknetworkx/atomi
 - `clear` keeps the key (empty vector), does not delete siblings.
 - `MAX_VEC_LEN` 64.
 - Kind / element type mismatch refused.
+- Sequential push / erase / clear keeps sibling keys.
 
 ```bash
 npm test
