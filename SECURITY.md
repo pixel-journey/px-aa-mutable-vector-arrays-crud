@@ -1,10 +1,11 @@
-# Security notes — vector CRUD
+# Security — vector CRUD
 
-| Mitigated | Behavior |
-| --- | --- |
-| Overlong vector (lab) | push refused |
-| Bad index | erase refused |
-| Element type mismatch | refused |
-| Sibling wipe | full-map style updates |
+## Closed in tests
 
-Production: real schema types, RAM, collection auth, chain previous map.
+Sibling preservation; kind mismatch non-mutating; bounds on length/index; clear vs delete semantics.
+
+## Not closed
+
+Auth for who may edit vectors; live AA validation; unbounded vectors on chain.
+
+No AtomicAssets RPC in this repository.

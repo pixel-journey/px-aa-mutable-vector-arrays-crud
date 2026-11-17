@@ -1,6 +1,17 @@
-# Tips — vector attributes
+# Tips — vector mutables
 
-- Cap length on contract for RAM; lab 64 is educational.
-- Prefer `clear` over deleting the key if schema expects the attribute.
-- Still deserialize → mutate → full serialize (layers 1–2).
-- String element max 256 chars in this lab only.
+## Do
+
+- Always merge the full map after vector ops.  
+- Document index shift on erase for game designers.  
+- Keep kind locked once the attribute exists.
+
+## Don't
+
+- Delete the key when you mean clear.  
+- Raise MAX_VEC_LEN without CPU/RAM budget.  
+- Skip sibling asserts in tests.
+
+## Related
+
+[primitives](https://github.com/pixel-journey/px-aa-mutable-all-primitive-types) · [safe-partial](https://github.com/pixel-journey/px-aa-mutable-safe-partial-updater) · [RPG XP](https://github.com/pixel-journey/px-aa-mutable-rpg-xp-and-leveling) · [deserialize-core](https://github.com/pixel-journey/px-aa-mutable-deserialize-core)

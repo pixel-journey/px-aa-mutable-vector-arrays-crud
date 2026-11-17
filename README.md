@@ -1,15 +1,14 @@
-# Mutable vector attributes: push, erase, clear
+# Vector mutable CRUD (sibling-safe)
 
-> **Stack:** layer 4 of 5 — [MUTABLE-STACK.md](https://github.com/pixel-journey/px-contract-examples-vault/blob/main/docs/MUTABLE-STACK.md)
-
-Teach `INT64_VEC` / `UINT64_VEC` / `STRING_VEC` operations with sibling safety. Pure TypeScript; no wasm; no live `setassetdata`.
+Educational push/erase/clear for AA vector attributes without wiping siblings. Layer 4 of the mutable stack.
 
 | Doc | Role |
 | --- | --- |
-| [EDUCATION.md](EDUCATION.md) | Outcomes |
-| [WORKED-EXAMPLES.md](WORKED-EXAMPLES.md) | Numbers from tests |
-| [TIPS.md](TIPS.md) | Kind locking |
-| [SOURCES.md](SOURCES.md) | AtomicAssets contract |
+| [EDUCATION.md](EDUCATION.md) | Ops + indices |
+| [WORKED-EXAMPLES.md](WORKED-EXAMPLES.md) | Tables |
+| [TIPS.md](TIPS.md) | Design tips |
+| [SECURITY.md](SECURITY.md) | Gaps |
+| [SOURCES.md](SOURCES.md) | Links |
 
 ```bash
 npm test
