@@ -5,7 +5,7 @@
 
 AtomicAssets supports **vector** attribute types. This lab teaches push, erase, clear, kind locking, and **sibling keys** so a vector edit never drops `nickname` (or any other field).
 
-Stack **layer 4 of 5**: [MUTABLE-STACK.md](https://github.com/pixel-journey/px-contract-examples-vault/blob/main/docs/MUTABLE-STACK.md).
+Stack **layer 4 of 5**: deserialize → safe-partial → primitives → **vector-crud** → rpg-xp.
 
 Prior: [all-primitive-types](https://github.com/pixel-journey/px-aa-mutable-all-primitive-types).  
 Next: [rpg-xp](https://github.com/pixel-journey/px-aa-mutable-rpg-xp-and-leveling).  
@@ -27,14 +27,32 @@ Official: [atomicassets-contract](https://github.com/pinknetworkx/atomicassets-c
 
 Start with `scores: []` and `nickname: "hero"`. Push `10` then `20` → `scores: [10, 20]`, nickname still **hero**.
 
+```bash
+npm test
+```
+
+---
+
 ## Intermediate
 
 | Op | Effect |
 | --- | --- |
-| erase index 0 on [10,20,30] | [20,30] — later indices shift |
+| erase index 0 on [10,20,30] | [20,30] — later indices **shift** |
 | clear | key remains, kind remains, length 0 |
 | push past MAX_VEC_LEN | refused |
 | erase out of range | refused |
+
+### Attack → test
+
+| Attack | Lab behavior |
+| --- | --- |
+| Write only `{ scores: [...] }` | siblings must stay (full map) |
+| Assume erase leaves a hole | indices shift |
+| Treat clear as delete key | key + kind remain |
+| Kind mismatch | throws; map unchanged |
+| Push past MAX_VEC_LEN | refused |
+
+---
 
 ## Masterclass
 
@@ -45,18 +63,29 @@ Kind mismatch (e.g. treating a string attribute as vector) **does not mutate** t
 1. Writing only `{ scores: [...] }` and wiping nickname.  
 2. Assuming erase leaves a hole (it shifts).  
 3. Treating clear as delete key.  
-4. Assuming MAX_VEC_LEN is the chain maximum.
+4. Assuming MAX_VEC_LEN is the chain maximum.  
+5. Mutating in place without a full-map rewrite path for production `setassetdata`.
 
 ### Nice-to-have extensions (not in this repo)
 
-- Ordered insert / swap ops.  
-- Nested object attributes (not standard AA vectors).  
-- Live schema-validated setassetdata.
+| Idea | Note |
+| --- | --- |
+| Ordered insert / swap ops | New tests |
+| Nested object attributes | Not standard AA vectors |
+| Live schema-validated setassetdata | Collection auth |
 
 ### Exercises
 
-1. After erase(0) on three elements, what is index 0?  
-2. Does clear remove the key? (No.)  
-3. Does a kind mismatch change sibling keys? (No.)
+1. After erase(0) on three elements, what is index 0? (**Former index 1**.)  
+2. Does clear remove the key? (**No**.)  
+3. Does a kind mismatch change sibling keys? (**No**.)
 
-Numbers: [WORKED-EXAMPLES.md](WORKED-EXAMPLES.md).
+Numbers: [WORKED-EXAMPLES.md](WORKED-EXAMPLES.md) · [SECURITY](SECURITY.md) · [SOURCES](SOURCES.md).
+
+---
+
+## What this course will not teach
+
+- Live AtomicAssets RPC
+- That lab vector caps equal chain maximums
+- Nested object maps as AA vector types
